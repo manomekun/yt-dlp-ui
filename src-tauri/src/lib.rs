@@ -3,6 +3,7 @@ use tauri::Manager;
 
 mod commands;
 mod downloader;
+mod installer;
 mod models;
 mod storage;
 

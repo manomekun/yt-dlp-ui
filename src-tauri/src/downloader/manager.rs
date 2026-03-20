@@ -7,8 +7,8 @@ use tauri_plugin_dialog::{DialogExt, MessageDialogButtons, MessageDialogKind};
 use tokio::io::{AsyncBufReadExt, BufReader};
 use tokio::process::Command;
 use tokio::sync::Mutex;
-use yt_dlp::Youtube;
 
+use crate::installer;
 use crate::models::HistoryEntry;
 use crate::storage::Storage;
 
@@ -67,18 +67,12 @@ impl DownloadManager {
             return Ok(());
         }
 
-        let yt_dlp_path = self.libs_dir.join("yt-dlp");
-        let ffmpeg_path = self.libs_dir.join("ffmpeg");
+        let yt_dlp_path = installer::yt_dlp_binary_path(&self.libs_dir);
+        let ffmpeg_path = installer::ffmpeg_binary_path(&self.libs_dir);
 
         if !yt_dlp_path.exists() || !ffmpeg_path.exists() {
             log::info!("Installing binaries to {:?}", self.libs_dir);
-            std::fs::create_dir_all(&self.libs_dir)
-                .map_err(|e| format!("Failed to create libs dir: {e}"))?;
-
-            Youtube::install_binaries(self.libs_dir.clone())
-                .await
-                .map_err(|e| format!("Failed to install binaries: {e}"))?;
-
+            installer::install_binaries(self.libs_dir.clone()).await?;
             log::info!("Binaries installed successfully");
         }
 
@@ -246,8 +240,8 @@ impl DownloadManager {
         let output_dir = PathBuf::from(&storage.get_settings().output_dir);
         std::fs::create_dir_all(&output_dir).ok();
 
-        let yt_dlp_path = libs_dir.join("yt-dlp");
-        let ffmpeg_path = libs_dir.join("ffmpeg");
+        let yt_dlp_path = installer::yt_dlp_binary_path(&libs_dir);
+        let ffmpeg_path = installer::ffmpeg_binary_path(&libs_dir);
 
         // Step 1: Fetch metadata
         Self::emit_status(&app, &id, DownloadStatus::Downloading, None, None);
