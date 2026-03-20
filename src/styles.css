@@ -1,0 +1,210 @@
+@font-face {
+  font-family: "Noto Sans JP";
+  src: url("./fonts/NotoSansJP-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans JP";
+  src: url("./fonts/NotoSansJP-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans JP";
+  src: url("./fonts/NotoSansJP-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "UDEV Gothic";
+  src: url("./fonts/UDEVGothic-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "UDEV Gothic";
+  src: url("./fonts/UDEVGothic-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  /* Base colors */
+  --bg-primary: #0a0f1c;
+  --bg-surface: #1e293b;
+  --bg-inset: #0f172a;
+  --accent: #0ea5e9;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --text-muted: #475569;
+  --text-on-accent: #ffffff;
+  --border: #334155;
+  --error: #ef4444;
+  --success: #22c55e;
+
+  /* Neumorphism */
+  --neu-surface: #1a1f2e;
+  --neu-shadow-dark: rgba(10, 15, 28, 0.53);
+  --neu-shadow-light: rgba(42, 48, 64, 0.4);
+
+  /* Glassmorphism */
+  --glass-fill: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-input: rgba(255, 255, 255, 0.03);
+
+  /* Gradient */
+  --gradient-start: #0ea5e9;
+  --gradient-end: #38bdf8;
+  --gradient-glow: rgba(14, 165, 233, 0.27);
+
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg-primary: #f1f5f9;
+  --bg-surface: #e2e8f0;
+  --bg-inset: #e8ecf1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+  --text-muted: #cbd5e1;
+  --border: #cbd5e1;
+
+  --neu-surface: #e2e8f0;
+  --neu-shadow-dark: rgba(176, 184, 200, 0.53);
+  --neu-shadow-light: #ffffff;
+
+  --glass-fill: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-input: rgba(255, 255, 255, 0.5);
+
+  --gradient-glow: rgba(14, 165, 233, 0.2);
+
+  color-scheme: light;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
+}
+
+.mono {
+  font-family: "UDEV Gothic", monospace;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+}
+
+/* Glassmorphism input */
+.glass-input {
+  background: var(--glass-input);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 14px;
+}
+
+/* Neumorphism button */
+.neu-btn {
+  background: var(--neu-surface);
+  border: none;
+  border-radius: 10px;
+  box-shadow:
+    3px 3px 6px var(--neu-shadow-dark),
+    -3px -3px 6px var(--neu-shadow-light);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+.neu-btn:active {
+  box-shadow:
+    inset 2px 2px 4px var(--neu-shadow-dark),
+    inset -2px -2px 4px var(--neu-shadow-light);
+}
+
+/* Primary gradient button */
+.btn-primary {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  border: none;
+  border-radius: 12px;
+  box-shadow:
+    4px 4px 12px var(--gradient-glow),
+    -2px -2px 6px rgba(125, 211, 252, 0.13);
+  color: var(--text-on-accent);
+  cursor: pointer;
+  font-weight: 600;
+  transition: box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+  box-shadow:
+    4px 4px 16px var(--gradient-glow),
+    -2px -2px 8px rgba(125, 211, 252, 0.2);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* Neumorphism select */
+.neu-select {
+  background: var(--neu-surface);
+  border: none;
+  border-radius: 12px;
+  box-shadow:
+    3px 3px 6px var(--neu-shadow-dark),
+    -3px -3px 6px var(--neu-shadow-light);
+}
+
+/* Progress bar */
+.progress-bar {
+  background: var(--glass-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.progress-fill.complete {
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+}
