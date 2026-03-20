@@ -24,9 +24,9 @@ tauri-plugin-dialog = "2"
 tauri-plugin-shell = "2"
 uuid = { version = "1", features = ["v4"] }
 dirs = "6"
-
-[target.'cfg(unix)'.dependencies]
-nix = { version = "0.29", features = ["signal", "process"] }
 yt-dlp = "0.1"
 tokio = { version = "1", features = ["full"] }
 chrono = { version = "0.4", features = ["serde"] }
+
+[target.'cfg(unix)'.dependencies]
+nix = { version = "0.29", features = ["signal", "process"] }
