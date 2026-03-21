@@ -64,7 +64,25 @@ jobs:
         with:
           tagName: __VERSION__
           releaseName: "TubeSaver __VERSION__"
-          releaseBody: "See assets below for downloads."
+          releaseBody: |
+            ## インストール方法
+
+            ### macOS
+            1. `.dmg` をダウンロードして開く
+            2. `TubeSaver.app` を `Applications` にドラッグ
+            3. **初回起動前に**ターミナルで以下を実行:
+            ```
+            xattr -cr /Applications/TubeSaver.app
+            ```
+            4. TubeSaverを起動（初回はyt-dlp/ffmpegの自動ダウンロードに少し時間がかかります）
+
+            ### Windows
+            - `.msi` または `.exe` をダウンロードしてインストール
+            - SmartScreen警告が出た場合:「詳細情報」→「実行」
+
+            ### Linux
+            - `.deb`: `sudo dpkg -i tubesaver_*.deb`
+            - `.AppImage`: `chmod +x TubeSaver_*.AppImage && ./TubeSaver_*.AppImage`
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
