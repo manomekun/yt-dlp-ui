@@ -7,6 +7,14 @@ set -euo pipefail
 APP_NAME="TubeSaver"
 REPO="manomekun/yt-dlp-ui"
 INSTALL_DIR="/Applications"
+MOUNT_POINT=""
+TMP_DMG=""
+
+cleanup() {
+  [ -n "$MOUNT_POINT" ] && hdiutil detach "$MOUNT_POINT" -quiet 2>/dev/null || true
+  [ -n "$TMP_DMG" ] && rm -f "$TMP_DMG"
+}
+trap cleanup EXIT
 
 echo "🎬 ${APP_NAME} インストーラー"
 echo "================================"
@@ -58,20 +66,19 @@ MOUNT_POINT=$(hdiutil attach -nobrowse "$TMP_DMG" 2>/dev/null | grep -o '/Volume
 
 if [ -z "$MOUNT_POINT" ]; then
   echo "❌ dmg のマウントに失敗しました"
-  rm -f "$TMP_DMG"
   exit 1
 fi
 
 cp -R "${MOUNT_POINT}/${APP_NAME}.app" "${INSTALL_DIR}/"
 
-# アンマウント
-hdiutil detach "$MOUNT_POINT" -quiet 2>/dev/null || true
+# インストール確認
+if [ ! -d "${INSTALL_DIR}/${APP_NAME}.app" ]; then
+  echo "❌ インストールに失敗しました。手動でインストールしてください。"
+  exit 1
+fi
 
 # quarantine 属性を除去
 xattr -r -d com.apple.quarantine "${INSTALL_DIR}/${APP_NAME}.app" 2>/dev/null || true
-
-# 一時ファイル削除
-rm -f "$TMP_DMG"
 
 echo "================================"
 echo "✅ ${APP_NAME} ${VERSION} のインストールが完了しました！"
