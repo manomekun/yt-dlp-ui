@@ -42,14 +42,34 @@ URLを貼り付けてボタンを押すだけで、動画（MP4）や音声（MP
 
 ## インストール方法
 
-### macOS
+### macOS（かんたん）
+
+ターミナルを開いて、以下をコピペして Enter を押してください：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/manomekun/yt-dlp-ui/main/install.sh | bash
+```
+
+> **ターミナルの開き方** — Spotlight（`⌘ + Space`）で「ターミナル」と検索して開けます。
+
+ダウンロードからインストール、セキュリティ設定まですべて自動で行われます。Apple Silicon / Intel も自動判定します。
+
+### macOS（Homebrew）
+
+```bash
+brew install manomekun/apps/tubesaver
+```
+
+### macOS（手動）
 
 1. 上のリンクから `.dmg` ファイルをダウンロード
 2. ダウンロードした `.dmg` を開く
 3. `TubeSaver` を `Applications` フォルダにドラッグ
-4. 初回起動時に「開発元が未確認」と表示されます。以下のいずれかで開けます：
-   - **方法A**: TubeSaver を **右クリック** →「開く」→ もう一度「開く」
-   - **方法B**: **システム設定** → **プライバシーとセキュリティ** → 画面下部の「このまま開く」をクリック
+4. 初回起動時に「開発元が未確認」と表示されて開けない場合、ターミナルで以下を実行：
+   ```
+   xattr -cr /Applications/TubeSaver.app
+   ```
+   > macOS 15 以降、署名されていないアプリの起動制限が強化されました。上記コマンドでダウンロード時に付与される隔離属性を除去することで起動できます。
 
 ### Windows
 

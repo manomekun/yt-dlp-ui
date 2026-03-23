@@ -67,14 +67,16 @@ jobs:
           releaseBody: |
             ## インストール方法
 
-            ### macOS
-            1. `.dmg` をダウンロードして開く
-            2. `TubeSaver.app` を `Applications` にドラッグ
-            3. 初回起動時に「開発元が未確認」と表示されます。以下のいずれかで開けます:
-               - **方法A**: TubeSaver.appを**右クリック** →「開く」→「開く」
-               - **方法B**: **システム設定** → **プライバシーとセキュリティ** → 下部の「このまま開く」をクリック
-               - **方法C** (ターミナル): `xattr -cr /Applications/TubeSaver.app`
-            4. 初回はyt-dlp/ffmpegの自動ダウンロードに少し時間がかかります
+            ### macOS（かんたん）
+            ターミナルに以下をコピペして Enter:
+            ```
+            curl -fsSL https://raw.githubusercontent.com/manomekun/yt-dlp-ui/main/install.sh | bash
+            ```
+            ### macOS（Homebrew）
+            ```
+            brew install manomekun/apps/tubesaver
+            ```
+            > 初回はyt-dlp/ffmpegの自動ダウンロードに少し時間がかかります
 
             ### Windows
             - `.msi` または `.exe` をダウンロードしてインストール
