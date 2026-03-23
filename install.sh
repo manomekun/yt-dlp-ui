@@ -54,11 +54,12 @@ fi
 
 # マウント & コピー
 echo "📂 インストール中..."
-MOUNT_POINT=$(hdiutil attach -nobrowse -quiet "$TMP_DMG" | tail -1 | awk '{print $3}')
+MOUNT_POINT=$(hdiutil attach -nobrowse "$TMP_DMG" 2>/dev/null | grep -o '/Volumes/.*' | head -1)
 
 if [ -z "$MOUNT_POINT" ]; then
-  # マウントポイントをフォールバックで検索
-  MOUNT_POINT=$(hdiutil attach -nobrowse -quiet "$TMP_DMG" | grep -o '/Volumes/.*' | head -1)
+  echo "❌ dmg のマウントに失敗しました"
+  rm -f "$TMP_DMG"
+  exit 1
 fi
 
 cp -R "${MOUNT_POINT}/${APP_NAME}.app" "${INSTALL_DIR}/"
